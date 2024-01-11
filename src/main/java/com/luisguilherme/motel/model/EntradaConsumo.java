@@ -13,12 +13,12 @@ public class EntradaConsumo {
     @Column(name = "mt04_total")
     private Float total;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "fkmt04mt03_codigo_itens")
     private Itens itens;
     @Column(name = "mt04_quantidade")
     private Integer quantidade;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fkmt04mt01_codigo_entradas")
     private Entradas entradas;
 }

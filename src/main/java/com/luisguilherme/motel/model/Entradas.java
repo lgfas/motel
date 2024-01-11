@@ -33,7 +33,6 @@ public class Entradas {
     @Column(name = "mt01_hora_saida")
     private LocalTime horaSaida;
     @ManyToOne
-
     @JoinColumn(name = "fkmt01mt02_codigo_quartos")
     private Quartos quartos;
 
