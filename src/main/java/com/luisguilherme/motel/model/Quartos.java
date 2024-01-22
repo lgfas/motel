@@ -11,11 +11,11 @@ public class Quartos {
     @Column(name = "mt02_codigo_quartos")
     private Long id;
     @Column(name = "mt02_numero")
-    private Integer numero;
+    private Long numero;
     @Column(name = "mt02_descricao")
     private String descricao;
     @Column(name = "mt02_capacidade_pessoa")
-    private Integer capacidadePessoa;
+    private Long capacidadePessoa;
     @Column(name = "mt02_status_do_quarto")
     private StatusDoQuarto statusDoQuarto;
 
@@ -27,11 +27,11 @@ public class Quartos {
         this.id = id;
     }
 
-    public Integer getNumero() {
+    public Long getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(Long numero) {
         this.numero = numero;
     }
 
@@ -43,11 +43,11 @@ public class Quartos {
         this.descricao = descricao;
     }
 
-    public Integer getCapacidadePessoa() {
+    public Long getCapacidadePessoa() {
         return capacidadePessoa;
     }
 
-    public void setCapacidadePessoa(Integer capacidadePessoa) {
+    public void setCapacidadePessoa(Long capacidadePessoa) {
         this.capacidadePessoa = capacidadePessoa;
     }
 
@@ -57,5 +57,15 @@ public class Quartos {
 
     public void setStatusDoQuarto(StatusDoQuarto statusDoQuarto) {
         this.statusDoQuarto = statusDoQuarto;
+    }
+
+    public Quartos(Long numero, String descricao, Long capacidadePessoa, StatusDoQuarto statusDoQuarto) {
+        this.numero = numero;
+        this.descricao = descricao;
+        this.capacidadePessoa = capacidadePessoa;
+        this.statusDoQuarto = statusDoQuarto;
+    }
+
+    public Quartos() {
     }
 }

@@ -125,4 +125,19 @@ public class Entradas {
     public void setHoraEntrada(LocalTime horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
+
+    public Entradas(LocalDate dataRegistroEntrada, StatusEntrada statusEntrada, TipoPagamento tipoPagamento, String placa, LocalTime horaSaida, Quartos quartos, StatusPagamento statusPagamento, Float totalEntrada, LocalTime horaEntrada) {
+        this.dataRegistroEntrada = dataRegistroEntrada;
+        this.statusEntrada = statusEntrada;
+        this.tipoPagamento = tipoPagamento;
+        this.placa = placa;
+        this.horaSaida = horaSaida;
+        this.quartos = quartos;
+        this.statusPagamento = statusPagamento;
+        this.totalEntrada = totalEntrada;
+        this.horaEntrada = horaEntrada;
+    }
+
+    public Entradas() {
+    }
 }
