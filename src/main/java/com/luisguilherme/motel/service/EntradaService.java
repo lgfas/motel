@@ -51,13 +51,17 @@ public class EntradaService {
     public Entradas criarEntrada(Long idQuarto, Entradas entradas) {
 
         Quartos quartos = quartosRepository.findById(idQuarto).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
-        quartos.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
-        entradas.setQuartos(quartos);
-        entradas.setDataRegistroEntrada(LocalDate.now());
-        entradas.setHoraEntrada(LocalTime.now());
-        entradas.setStatusEntrada(StatusEntrada.ATIVA);
-        entradas.setStatusPagamento(StatusPagamento.PENDENTE);
-        entradas.setTotalEntrada(0F);
+        if (!quartos.getStatusDoQuarto().equals(StatusDoQuarto.OCUPADO)) {
+            quartos.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
+            entradas.setQuartos(quartos);
+            entradas.setDataRegistroEntrada(LocalDate.now());
+            entradas.setHoraEntrada(LocalTime.now());
+            entradas.setStatusEntrada(StatusEntrada.ATIVA);
+            entradas.setStatusPagamento(StatusPagamento.PENDENTE);
+            entradas.setTotalEntrada(0F);
+        } else {
+            throw new IllegalArgumentException("Quarto já ocupado!");
+        }
 
         return entradaRepository.save(entradas);
     }
@@ -84,5 +88,12 @@ public class EntradaService {
 
         entradas.setTipoPagamento(tipoPagamento);
         entradas.setHoraSaida(LocalTime.now());
+
+        Quartos quarto = entradas.getQuartos();
+        quarto.setStatusDoQuarto(StatusDoQuarto.NECESSITA_LIMPEZA);
+    }
+
+    public void calcularTotalPorTempo(Entradas entradas) {
+
     }
 }

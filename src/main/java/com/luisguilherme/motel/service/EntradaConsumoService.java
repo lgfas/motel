@@ -1,5 +1,6 @@
 package com.luisguilherme.motel.service;
 
+import com.luisguilherme.motel.Enum.StatusEntrada;
 import com.luisguilherme.motel.model.EntradaConsumo;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Itens;
@@ -15,7 +16,6 @@ import java.util.List;
 public class EntradaConsumoService {
 
     private final EntradaConsumoRepository entradaConsumoRepository;
-
     private final EntradaRepository entradaRepository;
     private final ItensRepository itensRepository;
 
@@ -32,14 +32,17 @@ public class EntradaConsumoService {
         Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
         Itens item = itensRepository.findById(idItem).orElseThrow(() -> new EntityNotFoundException("Item inexistente!"));
 
-        entradaConsumo.setEntradas(entradas);
-        entradaConsumo.setItens(item);
+        if (!entradas.getStatusEntrada().equals(StatusEntrada.FINALIZADA)) {
+            entradaConsumo.setEntradas(entradas);
+            entradaConsumo.setItens(item);
 
-        var total = item.getValor() * entradaConsumo.getQuantidade();
+            var total = item.getValor() * entradaConsumo.getQuantidade();
 
-        entradaConsumo.setTotal(total);
-        entradas.setTotalEntrada(entradas.getTotalEntrada() + entradaConsumo.getTotal());
-
+            entradaConsumo.setTotal(total);
+            entradas.setTotalEntrada(entradas.getTotalEntrada() + entradaConsumo.getTotal());
+        } else {
+            throw new IllegalArgumentException("Entrada já finalizada!");
+        }
 
         return entradaConsumoRepository.save(entradaConsumo);
 
