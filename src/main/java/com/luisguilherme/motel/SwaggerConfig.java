@@ -12,3 +12,5 @@ public class SwaggerConfig {
         return new OpenAPI();
     }
 }
+
+//http://localhost:8080/swagger-ui/index.html#/

@@ -1,6 +1,7 @@
 package com.luisguilherme.motel.controller;
 
 import com.luisguilherme.motel.model.EntradaConsumo;
+import com.luisguilherme.motel.request.EntradaConsumoRequest;
 import com.luisguilherme.motel.service.EntradaConsumoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,8 @@ public class EntradaConsumoController {
     }
 
     @PostMapping("/adicionarConsumo")
-    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumo entradaConsumo, Long idItem) {
-        return entradaConsumoService.adicionarConsumo(idEntrada, entradaConsumo, idItem);
+    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumoRequest entradaConsumoRequest, Long idItem) {
+        return entradaConsumoService.adicionarConsumo(idEntrada, entradaConsumoRequest, idItem);
     }
 
     @DeleteMapping("/deletarConsumoPorId")

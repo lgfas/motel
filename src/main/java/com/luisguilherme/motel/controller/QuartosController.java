@@ -1,6 +1,7 @@
 package com.luisguilherme.motel.controller;
 
 import com.luisguilherme.motel.model.Quartos;
+import com.luisguilherme.motel.request.QuartosRequest;
 import com.luisguilherme.motel.service.QuartosService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class QuartosController {
     }
 
     @PostMapping("/criarQuarto")
-    public Quartos criarQuarto(Quartos quartos) {
-        return quartosService.criarQuarto(quartos);
+    public Quartos criarQuarto(QuartosRequest quartosRequest) {
+        return quartosService.criarQuarto(quartosRequest);
     }
 }

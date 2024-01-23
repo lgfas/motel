@@ -8,6 +8,7 @@ import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Quartos;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.QuartosRepository;
+import com.luisguilherme.motel.request.EntradaRequest;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +51,13 @@ public class EntradaService {
         return entradaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
     }
 
-    public Entradas criarEntrada(Long idQuarto, Entradas entradas) {
-
+    public Entradas criarEntrada(Long idQuarto, EntradaRequest entradaRequest) {
+        Entradas entradas = new Entradas();
         Quartos quartos = quartosRepository.findById(idQuarto).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
+
         if (!quartos.getStatusDoQuarto().equals(StatusDoQuarto.OCUPADO)) {
             quartos.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
+            entradas.setPlaca(entradaRequest.placa());
             entradas.setQuartos(quartos);
             entradas.setDataRegistroEntrada(LocalDate.now());
             entradas.setHoraEntrada(LocalTime.now());

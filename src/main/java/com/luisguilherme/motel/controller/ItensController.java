@@ -1,6 +1,7 @@
 package com.luisguilherme.motel.controller;
 
 import com.luisguilherme.motel.model.Itens;
+import com.luisguilherme.motel.request.ItensRequest;
 import com.luisguilherme.motel.service.ItensService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,8 @@ public class ItensController {
     }
 
     @PostMapping("/criarItem")
-    public Itens criarItem(Itens item) {
-        return itensService.criarItem(item);
+    public Itens criarItem(ItensRequest itensRequest) {
+        return itensService.criarItem(itensRequest);
     }
 
 

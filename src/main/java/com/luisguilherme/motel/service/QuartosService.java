@@ -3,6 +3,7 @@ package com.luisguilherme.motel.service;
 import com.luisguilherme.motel.Enum.StatusDoQuarto;
 import com.luisguilherme.motel.model.Quartos;
 import com.luisguilherme.motel.repository.QuartosRepository;
+import com.luisguilherme.motel.request.QuartosRequest;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,14 @@ public class QuartosService {
         return quartosRepository.findAll();
     }
 
-    public Quartos criarQuarto(Quartos quartos) {
+    public Quartos criarQuarto(QuartosRequest quartosRequest) {
+        Quartos quartos = new Quartos();
 
+        quartos.setStatusDoQuarto(StatusDoQuarto.DISPONIVEL);
+        quartos.setDescricao(quartosRequest.descricao());
+        quartos.setCapacidadePessoa(quartosRequest.capacidadePessoa());
         quartosRepository.save(quartos);
-
-        var quarto = quartosRepository.findById(quartos.getId()).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
-        quarto.setStatusDoQuarto(StatusDoQuarto.DISPONIVEL);
-        quarto.setNumero(quartos.getId());
+        quartos.setNumero(quartos.getId());
 
         return quartosRepository.save(quartos);
     }

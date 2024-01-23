@@ -7,6 +7,7 @@ import com.luisguilherme.motel.model.Itens;
 import com.luisguilherme.motel.repository.EntradaConsumoRepository;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.ItensRepository;
+import com.luisguilherme.motel.request.EntradaConsumoRequest;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +28,15 @@ public class EntradaConsumoService {
     }
 
 
-    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumo entradaConsumo, Long idItem) {
-
+    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumoRequest entradaConsumoRequest, Long idItem) {
+        EntradaConsumo entradaConsumo = new EntradaConsumo();
         Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
         Itens item = itensRepository.findById(idItem).orElseThrow(() -> new EntityNotFoundException("Item inexistente!"));
 
         if (!entradas.getStatusEntrada().equals(StatusEntrada.FINALIZADA)) {
             entradaConsumo.setEntradas(entradas);
             entradaConsumo.setItens(item);
+            entradaConsumo.setQuantidade(entradaConsumoRequest.quantidade());
 
             var total = item.getValor() * entradaConsumo.getQuantidade();
 
