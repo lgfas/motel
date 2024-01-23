@@ -35,10 +35,11 @@ public class EntradaConsumoService {
         entradaConsumo.setEntradas(entradas);
         entradaConsumo.setItens(item);
 
-
         var total = item.getValor() * entradaConsumo.getQuantidade();
 
         entradaConsumo.setTotal(total);
+        entradas.setTotalEntrada(entradas.getTotalEntrada() + entradaConsumo.getTotal());
+
 
         return entradaConsumoRepository.save(entradaConsumo);
 

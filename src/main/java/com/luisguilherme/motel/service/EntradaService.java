@@ -21,13 +21,11 @@ import java.util.List;
 public class EntradaService {
     private final EntradaRepository entradaRepository;
     private final QuartosRepository quartosRepository;
-    private final EntradaConsumoService entradaConsumoService;
 
     public EntradaService(EntradaRepository entradaRepository,
-                          QuartosRepository quartosRepository, EntradaConsumoService entradaConsumoService) {
+                          QuartosRepository quartosRepository) {
         this.entradaRepository = entradaRepository;
         this.quartosRepository = quartosRepository;
-        this.entradaConsumoService = entradaConsumoService;
     }
 
     public List<Entradas> obterEntradas() {
@@ -61,6 +59,7 @@ public class EntradaService {
         entradas.setHoraEntrada(LocalTime.now());
         entradas.setStatusEntrada(StatusEntrada.ATIVA);
         entradas.setStatusPagamento(StatusPagamento.PENDENTE);
+        entradas.setTotalEntrada(0F);
 
         return entradaRepository.save(entradas);
     }
@@ -84,13 +83,7 @@ public class EntradaService {
     public void finalizarEntrada(Long idEntrada, TipoPagamento tipoPagamento) {
 
         Entradas entradas = obterEntradaPorId(idEntrada);
-        List<EntradaConsumo> entradaConsumoList = entradaConsumoService.obterConsumosPorEntrada(idEntrada);
 
-        Float total = entradaConsumoList.stream()
-                .map(EntradaConsumo::getTotal)
-                .reduce(0f, Float::sum);
-
-        entradas.setTotalEntrada(total);
         entradas.setTipoPagamento(tipoPagamento);
         entradas.setHoraSaida(LocalTime.now());
     }
