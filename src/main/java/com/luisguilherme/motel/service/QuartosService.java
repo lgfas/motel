@@ -4,7 +4,6 @@ import com.luisguilherme.motel.Enum.StatusDoQuarto;
 import com.luisguilherme.motel.model.Quartos;
 import com.luisguilherme.motel.repository.QuartosRepository;
 import com.luisguilherme.motel.request.QuartosRequest;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
