@@ -11,7 +11,9 @@ import com.luisguilherme.motel.repository.QuartosRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -88,6 +90,7 @@ public class EntradaService {
 
         entradas.setTipoPagamento(tipoPagamento);
         entradas.setHoraSaida(LocalTime.now());
+        calcularTotalPorTempo(entradas);
 
         Quartos quarto = entradas.getQuartos();
         quarto.setStatusDoQuarto(StatusDoQuarto.NECESSITA_LIMPEZA);
@@ -95,5 +98,25 @@ public class EntradaService {
 
     public void calcularTotalPorTempo(Entradas entradas) {
 
+        var horaEntrada = entradas.getHoraEntrada();
+        var dataEntrada = entradas.getDataRegistroEntrada();
+        var horaSaida = entradas.getHoraSaida();
+        var dataSaida = LocalDate.now();
+
+
+        LocalDateTime entrada = LocalDateTime.of(dataEntrada, horaEntrada);
+
+        LocalDateTime saida = LocalDateTime.of(dataSaida, horaSaida);
+
+        long minutosPermanencia = Duration.between(entrada, saida).toMinutes();
+
+        double custo = 30.0;
+
+        if (minutosPermanencia > 120) {
+
+            custo += Math.ceil((minutosPermanencia - 120) / 30.0) * 5.0;
+        }
+
+        entradas.setTotalEntrada((float) (entradas.getTotalEntrada() + custo));
     }
 }
