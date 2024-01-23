@@ -17,8 +17,8 @@ public class EntradaConsumoController {
     }
 
     @PostMapping("/adicionarConsumo")
-    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumo entradaConsumo) {
-        return entradaConsumoService.adicionarConsumo(idEntrada, entradaConsumo);
+    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumo entradaConsumo, Long idItem) {
+        return entradaConsumoService.adicionarConsumo(idEntrada, entradaConsumo, idItem);
     }
 
     @DeleteMapping("/deletarConsumoPorId")

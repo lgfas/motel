@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +50,8 @@ public class EntradaService {
 
         Quartos quartos = quartosRepository.findById(idQuarto).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
         entradas.setQuartos(quartos);
-
-
+        entradas.setDataRegistroEntrada(LocalDate.now());
+        entradas.setHoraEntrada(LocalTime.now());
 
         return entradaRepository.save(entradas);
     }
