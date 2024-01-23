@@ -1,8 +1,13 @@
 package com.luisguilherme.motel.service;
 
+import com.luisguilherme.motel.Enum.StatusDoQuarto;
 import com.luisguilherme.motel.Enum.StatusEntrada;
+import com.luisguilherme.motel.Enum.StatusPagamento;
+import com.luisguilherme.motel.Enum.TipoPagamento;
+import com.luisguilherme.motel.model.EntradaConsumo;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Quartos;
+import com.luisguilherme.motel.repository.EntradaConsumoRepository;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.QuartosRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,17 +16,18 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EntradaService {
     private final EntradaRepository entradaRepository;
     private final QuartosRepository quartosRepository;
+    private final EntradaConsumoService entradaConsumoService;
 
     public EntradaService(EntradaRepository entradaRepository,
-                          QuartosRepository quartosRepository) {
+                          QuartosRepository quartosRepository, EntradaConsumoService entradaConsumoService) {
         this.entradaRepository = entradaRepository;
         this.quartosRepository = quartosRepository;
+        this.entradaConsumoService = entradaConsumoService;
     }
 
     public List<Entradas> obterEntradas() {
@@ -49,27 +55,43 @@ public class EntradaService {
     public Entradas criarEntrada(Long idQuarto, Entradas entradas) {
 
         Quartos quartos = quartosRepository.findById(idQuarto).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
+        quartos.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
         entradas.setQuartos(quartos);
         entradas.setDataRegistroEntrada(LocalDate.now());
         entradas.setHoraEntrada(LocalTime.now());
+        entradas.setStatusEntrada(StatusEntrada.ATIVA);
+        entradas.setStatusPagamento(StatusPagamento.PENDENTE);
 
         return entradaRepository.save(entradas);
     }
 
-    public Entradas atualizarEntrada(Long idEntrada, Entradas novaEntrada) {
+    public Entradas atualizarEntrada(Long idEntrada, Entradas novaEntrada, TipoPagamento tipoPagamento, StatusEntrada statusEntrada) {
 
         Entradas entradas = obterEntradaPorId(idEntrada);
+        entradas.setStatusEntrada(statusEntrada);
 
-        entradas.setHoraEntrada(novaEntrada.getHoraEntrada());
-        entradas.setHoraSaida(novaEntrada.getHoraSaida());
-        entradas.setStatusEntrada(novaEntrada.getStatusEntrada());
-        entradas.setTotalEntrada(novaEntrada.getTotalEntrada());
-        entradas.setDataRegistroEntrada(novaEntrada.getDataRegistroEntrada());
+        if (statusEntrada.equals(StatusEntrada.FINALIZADA)) {
+            finalizarEntrada(idEntrada, tipoPagamento);
+        }
+
         entradas.setPlaca(novaEntrada.getPlaca());
-        entradas.setStatusPagamento(novaEntrada.getStatusPagamento());
-        entradas.setTipoPagamento(novaEntrada.getTipoPagamento());
+
 
         return entradaRepository.save(entradas);
 
+    }
+
+    public void finalizarEntrada(Long idEntrada, TipoPagamento tipoPagamento) {
+
+        Entradas entradas = obterEntradaPorId(idEntrada);
+        List<EntradaConsumo> entradaConsumoList = entradaConsumoService.obterConsumosPorEntrada(idEntrada);
+
+        Float total = entradaConsumoList.stream()
+                .map(EntradaConsumo::getTotal)
+                .reduce(0f, Float::sum);
+
+        entradas.setTotalEntrada(total);
+        entradas.setTipoPagamento(tipoPagamento);
+        entradas.setHoraSaida(LocalTime.now());
     }
 }

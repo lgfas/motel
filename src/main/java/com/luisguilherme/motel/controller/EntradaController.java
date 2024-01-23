@@ -1,13 +1,13 @@
 package com.luisguilherme.motel.controller;
 
 import com.luisguilherme.motel.Enum.StatusEntrada;
+import com.luisguilherme.motel.Enum.TipoPagamento;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.service.EntradaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/entradas")
@@ -49,9 +49,10 @@ public class EntradaController {
     }
 
     @PutMapping("/atualizarEntrada")
-    public Entradas atualizarEntrada(Long idEntrada, Entradas entradas) {
-        return entradaService.atualizarEntrada(idEntrada,entradas);
+    public Entradas atualizarEntrada(Long idEntrada, Entradas entradas, TipoPagamento tipoPagamento, StatusEntrada statusEntrada) {
+        return entradaService.atualizarEntrada(idEntrada,entradas, tipoPagamento, statusEntrada);
     }
+
 
 
 }

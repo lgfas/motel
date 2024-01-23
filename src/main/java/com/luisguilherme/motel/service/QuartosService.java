@@ -24,7 +24,7 @@ public class QuartosService {
 
         quartosRepository.save(quartos);
 
-        var quarto = quartosRepository.findById(quartos.getId()).orElseThrow(() -> new EntityNotFoundException("Não achou"));
+        var quarto = quartosRepository.findById(quartos.getId()).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
         quarto.setStatusDoQuarto(StatusDoQuarto.DISPONIVEL);
         quarto.setNumero(quartos.getId());
 
