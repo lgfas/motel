@@ -4,6 +4,7 @@ import com.luisguilherme.motel.Enum.StatusEntrada;
 import com.luisguilherme.motel.Enum.TipoPagamento;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.request.EntradaRequest;
+import com.luisguilherme.motel.response.EntradaResponse;
 import com.luisguilherme.motel.service.EntradaService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,27 +21,27 @@ public class EntradaController {
     }
 
     @GetMapping
-    public List<Entradas> obterEntradas() {
+    public List<EntradaResponse> obterEntradas() {
         return entradaService.obterEntradas();
     }
 
     @GetMapping("/statusEntrada/{statusEntrada}")
-    public List<Entradas> obterEntradasPorStatusEntrada(@PathVariable StatusEntrada statusEntrada) {
+    public List<EntradaResponse> obterEntradasPorStatusEntrada(@PathVariable StatusEntrada statusEntrada) {
         return entradaService.obterEntradasPorStatusEntrada(statusEntrada);
     }
 
     @GetMapping("/buscaPorData")
-    public List<Entradas> obterEntradasPorData(LocalDate data) {
+    public List<EntradaResponse> obterEntradasPorData(LocalDate data) {
         return entradaService.obterEntradasPorData(data);
     }
 
     @GetMapping("/buscaPorDataAtual")
-    public List<Entradas> obterEntradasPorDataAtual() {
+    public List<EntradaResponse> obterEntradasPorDataAtual() {
         return entradaService.obterEntradasPorDataAtual();
     }
 
     @GetMapping("/id/{id}")
-    public Entradas obterEntradaPorId(@PathVariable Long id) {
+    public EntradaResponse obterEntradaPorId(@PathVariable Long id) {
         return entradaService.obterEntradaPorId(id);
     }
 

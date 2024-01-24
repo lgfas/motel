@@ -9,6 +9,7 @@ import com.luisguilherme.motel.model.Quartos;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.QuartosRepository;
 import com.luisguilherme.motel.request.EntradaRequest;
+import com.luisguilherme.motel.response.EntradaResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,26 +31,62 @@ public class EntradaService {
         this.quartosRepository = quartosRepository;
     }
 
-    public List<Entradas> obterEntradas() {
-        return entradaRepository.findAll();
+    public EntradaResponse converteEntradaResponse(Entradas entradas) {
+        return new EntradaResponse(
+                entradas.getId(),
+                entradas.getDataRegistroEntrada(),
+                entradas.getHoraEntrada(),
+                entradas.getStatusEntrada(),
+                entradas.getTipoPagamento(),
+                entradas.getPlaca(),
+                entradas.getHoraSaida(),
+                entradas.getQuartos().getNumero(),
+                entradas.getStatusPagamento(),
+                entradas.getTotalEntrada());
     }
 
-    public List<Entradas> obterEntradasPorStatusEntrada(StatusEntrada statusEntrada) {
-        return entradaRepository.findAllByStatusEntrada(statusEntrada);
+    public List<EntradaResponse> obterEntradas() {
+        List<Entradas> entradas = entradaRepository.findAll();
+        List<EntradaResponse> entradaResponses = new ArrayList<>();
+
+        entradas.forEach(e -> entradaResponses.add(converteEntradaResponse(e)));
+
+        return entradaResponses;
     }
 
-    public List<Entradas> obterEntradasPorData(LocalDate dataRegistroEntrada) {
-        return entradaRepository.findAllByDataRegistroEntrada(dataRegistroEntrada);
+    public List<EntradaResponse> obterEntradasPorStatusEntrada(StatusEntrada statusEntrada) {
+        List<Entradas> entradas = entradaRepository.findAllByStatusEntrada(statusEntrada);
+        List<EntradaResponse> entradaResponses = new ArrayList<>();
+
+
+        entradas.forEach(e -> entradaResponses.add(converteEntradaResponse(e)));
+        return entradaResponses;
     }
 
-    public List<Entradas> obterEntradasPorDataAtual() {
+    public List<EntradaResponse> obterEntradasPorData(LocalDate dataRegistroEntrada) {
+        List<Entradas> entradas = entradaRepository.findAllByDataRegistroEntrada(dataRegistroEntrada);
+        List<EntradaResponse> entradaResponses = new ArrayList<>();
+
+
+        entradas.forEach(e -> entradaResponses.add(converteEntradaResponse(e)));
+
+        return entradaResponses;
+    }
+
+    public List<EntradaResponse> obterEntradasPorDataAtual() {
         LocalDate dataAtual = LocalDate.now();
 
-        return entradaRepository.findAllByDataRegistroEntrada(dataAtual);
+        List<Entradas> entradas = entradaRepository.findAllByDataRegistroEntrada(dataAtual);
+        List<EntradaResponse> entradaResponses = new ArrayList<>();
+
+
+        entradas.forEach(e -> entradaResponses.add(converteEntradaResponse(e)));
+
+        return entradaResponses;
     }
 
-    public Entradas obterEntradaPorId(Long id) {
-        return entradaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
+    public EntradaResponse obterEntradaPorId(Long id) {
+        return converteEntradaResponse(entradaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!")));
     }
 
     public Entradas criarEntrada(Long idQuarto, EntradaRequest entradaRequest) {
@@ -73,7 +111,12 @@ public class EntradaService {
 
     public Entradas atualizarEntrada(Long idEntrada, Entradas novaEntrada, TipoPagamento tipoPagamento, StatusEntrada statusEntrada) {
 
-        Entradas entradas = obterEntradaPorId(idEntrada);
+        Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
+
+        if (entradas.getStatusEntrada().equals(StatusEntrada.FINALIZADA)) {
+            throw new IllegalArgumentException("Entrada já finalizada!");
+        }
+
         entradas.setStatusEntrada(statusEntrada);
 
         if (statusEntrada.equals(StatusEntrada.FINALIZADA)) {
@@ -89,14 +132,15 @@ public class EntradaService {
 
     public void finalizarEntrada(Long idEntrada, TipoPagamento tipoPagamento) {
 
-        Entradas entradas = obterEntradaPorId(idEntrada);
+        Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
 
         entradas.setTipoPagamento(tipoPagamento);
         entradas.setHoraSaida(LocalTime.now());
         calcularTotalPorTempo(entradas);
+        entradas.setStatusPagamento(StatusPagamento.CONCLUIDO);
 
         Quartos quarto = entradas.getQuartos();
-        quarto.setStatusDoQuarto(StatusDoQuarto.NECESSITA_LIMPEZA);
+        quarto.setStatusDoQuarto(StatusDoQuarto.DISPONIVEL);
     }
 
     public void calcularTotalPorTempo(Entradas entradas) {
