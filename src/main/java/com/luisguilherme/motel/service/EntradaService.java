@@ -24,11 +24,13 @@ import java.util.List;
 public class EntradaService {
     private final EntradaRepository entradaRepository;
     private final QuartosRepository quartosRepository;
+    private final MapaGeralService mapaGeralService;
 
     public EntradaService(EntradaRepository entradaRepository,
-                          QuartosRepository quartosRepository) {
+                          QuartosRepository quartosRepository, MapaGeralService mapaGeralService) {
         this.entradaRepository = entradaRepository;
         this.quartosRepository = quartosRepository;
+        this.mapaGeralService = mapaGeralService;
     }
 
     public EntradaResponse converteEntradaResponse(Entradas entradas) {
@@ -121,6 +123,7 @@ public class EntradaService {
 
         if (statusEntrada.equals(StatusEntrada.FINALIZADA)) {
             finalizarEntrada(idEntrada, tipoPagamento);
+            mapaGeralService.criarMapa(idEntrada);
         }
 
         entradas.setPlaca(novaEntrada.getPlaca());

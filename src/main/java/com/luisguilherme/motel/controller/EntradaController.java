@@ -40,7 +40,7 @@ public class EntradaController {
         return entradaService.obterEntradasPorDataAtual();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/buscaPorId/{id}")
     public EntradaResponse obterEntradaPorId(@PathVariable Long id) {
         return entradaService.obterEntradaPorId(id);
     }
