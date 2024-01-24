@@ -134,6 +134,10 @@ public class EntradaService {
 
         Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
 
+        if (tipoPagamento.equals(TipoPagamento.PENDENTE)) {
+            throw new IllegalArgumentException("Selecione uma opção de pagamento!");
+        }
+
         entradas.setTipoPagamento(tipoPagamento);
         entradas.setHoraSaida(LocalTime.now());
         calcularTotalPorTempo(entradas);
