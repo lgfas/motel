@@ -4,6 +4,7 @@ import com.luisguilherme.motel.Enum.StatusEntrada;
 import com.luisguilherme.motel.model.EntradaConsumo;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Itens;
+import com.luisguilherme.motel.model.builders.EntradaConsumoBuilder;
 import com.luisguilherme.motel.repository.EntradaConsumoRepository;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.ItensRepository;
@@ -29,24 +30,26 @@ public class EntradaConsumoService {
 
 
     public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumoRequest entradaConsumoRequest, Long idItem) {
-        EntradaConsumo entradaConsumo = new EntradaConsumo();
+        //EntradaConsumo entradaConsumo = new EntradaConsumo();
         Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
         Itens item = itensRepository.findById(idItem).orElseThrow(() -> new EntityNotFoundException("Item inexistente!"));
 
         if (!entradas.getStatusEntrada().equals(StatusEntrada.FINALIZADA)) {
-            entradaConsumo.setEntradas(entradas);
-            entradaConsumo.setItens(item);
-            entradaConsumo.setQuantidade(entradaConsumoRequest.quantidade());
+            var total = item.getValor() * entradaConsumoRequest.quantidade();
 
-            var total = item.getValor() * entradaConsumo.getQuantidade();
+            EntradaConsumo entradaConsumo = new EntradaConsumoBuilder()
+                    .entradas(entradas)
+                    .itens(item)
+                    .quantidade(entradaConsumoRequest.quantidade())
+                    .total(total)
+                    .build();
 
-            entradaConsumo.setTotal(total);
             entradas.setTotalEntrada(entradas.getTotalEntrada() + entradaConsumo.getTotal());
+
+            return entradaConsumoRepository.save(entradaConsumo);
         } else {
             throw new IllegalArgumentException("Entrada já finalizada!");
         }
-
-        return entradaConsumoRepository.save(entradaConsumo);
 
     }
 

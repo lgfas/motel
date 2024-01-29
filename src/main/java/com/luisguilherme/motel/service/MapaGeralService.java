@@ -2,6 +2,7 @@ package com.luisguilherme.motel.service;
 
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.MapaGeral;
+import com.luisguilherme.motel.model.builders.MapaGeralBuilder;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.MapaGeralRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,7 +30,7 @@ public class MapaGeralService {
     }
 
     public void criarMapa(Long idEntrada) {
-        MapaGeral mapaGeral = new MapaGeral();
+
         Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
 
         Float totalMapa = mapaGeralRepository.calcularTotal();
@@ -37,7 +38,7 @@ public class MapaGeralService {
             totalMapa = 0F;
         }
 
-        String report = "";
+        String turno = "";
 
         LocalTime horaAtual = LocalTime.now();
 
@@ -51,37 +52,43 @@ public class MapaGeralService {
         LocalTime fimNoite = LocalTime.of(23, 59, 59);
 
         if (horaAtual.isAfter(inicioDia) && horaAtual.isBefore(fimDia)){
-            report = "ENTRADA DIA";
+            turno = "ENTRADA DIA";
         }
         if (horaAtual.isAfter(inicioNoite) && horaAtual.isBefore(fimNoite) || horaAtual.isAfter(inicioMadrugada) && horaAtual.isBefore(fimMadrugada)){
-            report = "ENTRADA NOITE";
+            turno = "ENTRADA NOITE";
         }
+
+        String report = "";
+        Float entrada = 0F;
 
         switch (entradas.getTipoPagamento()) {
             case PIX:
-                mapaGeral.setReport(report + " (PIX)");
-                mapaGeral.setEntrada(0F);
+                report = turno + " (PIX)";
+                entrada = 0F;
                 totalMapa += 0;
                 break;
             case CARTAO:
-                mapaGeral.setReport(report + " (CARTAO)");
-                mapaGeral.setEntrada(0F);
+                report = turno + " (CARTÃO)";
+                entrada = 0F;
                 totalMapa += 0;
                 break;
             case DINHEIRO:
-                mapaGeral.setReport(report + " (DINHEIRO)");
+                report = turno + " (DINHEIRO)";
                 var valor = entradas.getTotalEntrada();
-                mapaGeral.setEntrada(valor);
+                entrada = valor;
                 totalMapa += valor;
                 break;
         }
 
-
-        mapaGeral.setData(LocalDate.now());
-        mapaGeral.setHora(LocalTime.now());
-        mapaGeral.setApartment(0);
-        mapaGeral.setSaida(0F);
-        mapaGeral.setTotal(totalMapa);
+        MapaGeral mapaGeral = new MapaGeralBuilder()
+                .data(LocalDate.now())
+                .hora(LocalTime.now())
+                .apartment(0)
+                .entrada(entrada)
+                .saida(0F)
+                .report(report)
+                .total(totalMapa)
+                .build();
 
         mapaGeralRepository.save(mapaGeral);
     }

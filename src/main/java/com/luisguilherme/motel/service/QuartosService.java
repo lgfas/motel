@@ -2,6 +2,7 @@ package com.luisguilherme.motel.service;
 
 import com.luisguilherme.motel.Enum.StatusDoQuarto;
 import com.luisguilherme.motel.model.Quartos;
+import com.luisguilherme.motel.model.builders.QuartosBuilder;
 import com.luisguilherme.motel.repository.QuartosRepository;
 import com.luisguilherme.motel.request.QuartosRequest;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,13 @@ public class QuartosService {
     }
 
     public Quartos criarQuarto(QuartosRequest quartosRequest) {
-        Quartos quartos = new Quartos();
 
-        quartos.setStatusDoQuarto(StatusDoQuarto.DISPONIVEL);
-        quartos.setDescricao(quartosRequest.descricao());
-        quartos.setCapacidadePessoa(quartosRequest.capacidadePessoa());
+        Quartos quartos = new QuartosBuilder()
+                .statusDoQuarto(StatusDoQuarto.DISPONIVEL)
+                .descricao(quartosRequest.descricao())
+                .capacidadePessoa(quartosRequest.capacidadePessoa())
+                .build();
+
         quartosRepository.save(quartos);
         quartos.setNumero(quartos.getId());
 
