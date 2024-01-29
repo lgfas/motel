@@ -6,6 +6,7 @@ import com.luisguilherme.motel.Enum.StatusPagamento;
 import com.luisguilherme.motel.Enum.TipoPagamento;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Quartos;
+import com.luisguilherme.motel.model.builders.EntradaBuilder;
 import com.luisguilherme.motel.repository.EntradaRepository;
 import com.luisguilherme.motel.repository.QuartosRepository;
 import com.luisguilherme.motel.request.EntradaRequest;
@@ -92,23 +93,26 @@ public class EntradaService {
     }
 
     public Entradas criarEntrada(Long idQuarto, EntradaRequest entradaRequest) {
-        Entradas entradas = new Entradas();
+
         Quartos quartos = quartosRepository.findById(idQuarto).orElseThrow(() -> new EntityNotFoundException("Quarto não encontrado!"));
 
         if (!quartos.getStatusDoQuarto().equals(StatusDoQuarto.OCUPADO)) {
             quartos.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
-            entradas.setPlaca(entradaRequest.placa());
-            entradas.setQuartos(quartos);
-            entradas.setDataRegistroEntrada(LocalDate.now());
-            entradas.setHoraEntrada(LocalTime.now());
-            entradas.setStatusEntrada(StatusEntrada.ATIVA);
-            entradas.setStatusPagamento(StatusPagamento.PENDENTE);
-            entradas.setTotalEntrada(0F);
+            Entradas entradas = new EntradaBuilder()
+                    .placa(entradaRequest.placa())
+                    .quartos(quartos)
+                    .dataRegistroEntrada(LocalDate.now())
+                    .horaEntrada(LocalTime.now())
+                    .statusEntrada(StatusEntrada.ATIVA)
+                    .statusPagamento(StatusPagamento.PENDENTE)
+                    .totalEntrada(0F)
+                    .build();
+
+            return entradaRepository.save(entradas);
         } else {
             throw new IllegalArgumentException("Quarto já ocupado!");
         }
 
-        return entradaRepository.save(entradas);
     }
 
     public Entradas atualizarEntrada(Long idEntrada, Entradas novaEntrada, TipoPagamento tipoPagamento, StatusEntrada statusEntrada) {
