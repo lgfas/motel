@@ -1,8 +1,8 @@
 package com.luisguilherme.motel.response;
 
-import com.luisguilherme.motel.Enum.StatusEntrada;
-import com.luisguilherme.motel.Enum.StatusPagamento;
-import com.luisguilherme.motel.Enum.TipoPagamento;
+import com.luisguilherme.motel.enums.StatusEntrada;
+import com.luisguilherme.motel.enums.StatusPagamento;
+import com.luisguilherme.motel.enums.TipoPagamento;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

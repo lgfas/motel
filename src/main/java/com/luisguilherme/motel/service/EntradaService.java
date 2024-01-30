@@ -1,9 +1,9 @@
 package com.luisguilherme.motel.service;
 
-import com.luisguilherme.motel.Enum.StatusDoQuarto;
-import com.luisguilherme.motel.Enum.StatusEntrada;
-import com.luisguilherme.motel.Enum.StatusPagamento;
-import com.luisguilherme.motel.Enum.TipoPagamento;
+import com.luisguilherme.motel.enums.StatusDoQuarto;
+import com.luisguilherme.motel.enums.StatusEntrada;
+import com.luisguilherme.motel.enums.StatusPagamento;
+import com.luisguilherme.motel.enums.TipoPagamento;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Quartos;
 import com.luisguilherme.motel.model.builders.EntradaBuilder;
@@ -144,6 +144,7 @@ public class EntradaService {
         if (tipoPagamento.equals(TipoPagamento.PENDENTE)) {
             throw new IllegalArgumentException("Selecione uma opção de pagamento!");
         }
+
 
         entradas.setTipoPagamento(tipoPagamento);
         entradas.setHoraSaida(LocalTime.now());

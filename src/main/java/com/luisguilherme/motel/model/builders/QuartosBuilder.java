@@ -1,8 +1,7 @@
 package com.luisguilherme.motel.model.builders;
 
-import com.luisguilherme.motel.Enum.StatusDoQuarto;
+import com.luisguilherme.motel.enums.StatusDoQuarto;
 import com.luisguilherme.motel.model.Quartos;
-import jakarta.persistence.Column;
 
 public class QuartosBuilder {
 

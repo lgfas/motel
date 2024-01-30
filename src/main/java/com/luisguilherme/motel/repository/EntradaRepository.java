@@ -1,6 +1,6 @@
 package com.luisguilherme.motel.repository;
 
-import com.luisguilherme.motel.Enum.StatusEntrada;
+import com.luisguilherme.motel.enums.StatusEntrada;
 import com.luisguilherme.motel.model.Entradas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

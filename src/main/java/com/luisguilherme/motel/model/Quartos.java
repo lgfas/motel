@@ -1,6 +1,6 @@
 package com.luisguilherme.motel.model;
 
-import com.luisguilherme.motel.Enum.StatusDoQuarto;
+import com.luisguilherme.motel.enums.StatusDoQuarto;
 import jakarta.persistence.*;
 
 @Entity

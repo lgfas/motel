@@ -1,6 +1,6 @@
 package com.luisguilherme.motel.service;
 
-import com.luisguilherme.motel.Enum.StatusDoQuarto;
+import com.luisguilherme.motel.enums.StatusDoQuarto;
 import com.luisguilherme.motel.model.Quartos;
 import com.luisguilherme.motel.model.builders.QuartosBuilder;
 import com.luisguilherme.motel.repository.QuartosRepository;

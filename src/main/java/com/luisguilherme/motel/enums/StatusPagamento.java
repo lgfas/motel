@@ -1,4 +1,4 @@
-package com.luisguilherme.motel.Enum;
+package com.luisguilherme.motel.enums;
 
 public enum StatusPagamento {
     PENDENTE,
