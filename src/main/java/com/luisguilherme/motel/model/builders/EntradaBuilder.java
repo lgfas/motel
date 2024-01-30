@@ -1,8 +1,8 @@
 package com.luisguilherme.motel.model.builders;
 
-import com.luisguilherme.motel.Enum.StatusEntrada;
-import com.luisguilherme.motel.Enum.StatusPagamento;
-import com.luisguilherme.motel.Enum.TipoPagamento;
+import com.luisguilherme.motel.enums.StatusEntrada;
+import com.luisguilherme.motel.enums.StatusPagamento;
+import com.luisguilherme.motel.enums.TipoPagamento;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Quartos;
 

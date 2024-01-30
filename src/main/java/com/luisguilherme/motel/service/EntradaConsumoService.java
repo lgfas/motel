@@ -1,6 +1,6 @@
 package com.luisguilherme.motel.service;
 
-import com.luisguilherme.motel.Enum.StatusEntrada;
+import com.luisguilherme.motel.enums.StatusEntrada;
 import com.luisguilherme.motel.model.EntradaConsumo;
 import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.model.Itens;
