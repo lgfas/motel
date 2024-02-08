@@ -30,6 +30,22 @@ public class EntradaFixture {
         );
     }
 
+    public static Entradas entradaAtivaDiferente() {
+
+        return new Entradas(
+                3L,
+                LocalDate.now(),
+                StatusEntrada.ATIVA,
+                TipoPagamento.PENDENTE,
+                "afs9i14",
+                null,
+                QuartosFixture.quartos(),
+                StatusPagamento.PENDENTE,
+                0F,
+                LocalTime.now()
+        );
+    }
+
     public static Entradas entradaFinalizada() {
 
 
@@ -53,6 +69,16 @@ public class EntradaFixture {
 
         entradasList.add(entradaAtiva());
         entradasList.add(entradaFinalizada());
+
+        return entradasList;
+    }
+
+    public static List<Entradas> entradasListAtiva() {
+
+        List<Entradas> entradasList = new ArrayList<>();
+
+        entradasList.add(entradaAtiva());
+        entradasList.add(entradaAtivaDiferente());
 
         return entradasList;
     }
