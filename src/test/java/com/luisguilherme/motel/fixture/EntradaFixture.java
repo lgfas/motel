@@ -18,7 +18,7 @@ public class EntradaFixture {
 
         return new Entradas(
                 1L,
-                LocalDate.now(),
+                LocalDate.now().minusDays(1),
                 StatusEntrada.ATIVA,
                 TipoPagamento.PENDENTE,
                 "ptz2i90",
@@ -46,20 +46,36 @@ public class EntradaFixture {
         );
     }
 
+    public static Entradas entradaDataAtual() {
+
+        return new Entradas(
+                4L,
+                LocalDate.now(),
+                StatusEntrada.FINALIZADA,
+                TipoPagamento.PENDENTE,
+                "hjz9r34",
+                null,
+                QuartosFixture.quartos(),
+                StatusPagamento.PENDENTE,
+                0F,
+                LocalTime.now()
+        );
+    }
+
     public static Entradas entradaFinalizada() {
 
 
         return new Entradas(
                 2L,
-                LocalDate.now(),
+                LocalDate.now().minusDays(1),
                 StatusEntrada.FINALIZADA,
                 TipoPagamento.PENDENTE,
                 "hjs3o18",
-                LocalTime.now(),
+                null,
                 QuartosFixture.quartos(),
                 StatusPagamento.PENDENTE,
                 0F,
-                LocalTime.now().minusHours(1)
+                LocalTime.now()
         );
     }
 
@@ -79,6 +95,16 @@ public class EntradaFixture {
 
         entradasList.add(entradaAtiva());
         entradasList.add(entradaAtivaDiferente());
+
+        return entradasList;
+    }
+
+    public static List<Entradas> entradasListDataAtual() {
+
+        List<Entradas> entradasList = new ArrayList<>();
+
+        entradasList.add(entradaAtivaDiferente());
+        entradasList.add(entradaDataAtual());
 
         return entradasList;
     }
