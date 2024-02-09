@@ -8,7 +8,7 @@ import java.util.List;
 
 public class QuartosFixture {
 
-    public static Quartos quartos() {
+    public static Quartos quarto() {
 
         return new Quartos(
                 1L,
@@ -23,7 +23,7 @@ public class QuartosFixture {
 
         List<Quartos> quartosList = new ArrayList<>();
 
-        quartosList.add(quartos());
+        quartosList.add(quarto());
 
         return quartosList;
     }

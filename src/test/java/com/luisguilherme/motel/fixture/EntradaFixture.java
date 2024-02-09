@@ -1,11 +1,9 @@
 package com.luisguilherme.motel.fixture;
 
-import com.luisguilherme.motel.enums.StatusDoQuarto;
 import com.luisguilherme.motel.enums.StatusEntrada;
 import com.luisguilherme.motel.enums.StatusPagamento;
 import com.luisguilherme.motel.enums.TipoPagamento;
 import com.luisguilherme.motel.model.Entradas;
-import com.luisguilherme.motel.model.Quartos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +21,7 @@ public class EntradaFixture {
                 TipoPagamento.PENDENTE,
                 "ptz2i90",
                 null,
-                QuartosFixture.quartos(),
+                QuartosFixture.quarto(),
                 StatusPagamento.PENDENTE,
                 0F,
                 LocalTime.now()
@@ -39,7 +37,7 @@ public class EntradaFixture {
                 TipoPagamento.PENDENTE,
                 "afs9i14",
                 null,
-                QuartosFixture.quartos(),
+                QuartosFixture.quarto(),
                 StatusPagamento.PENDENTE,
                 0F,
                 LocalTime.now()
@@ -55,7 +53,7 @@ public class EntradaFixture {
                 TipoPagamento.PENDENTE,
                 "hjz9r34",
                 null,
-                QuartosFixture.quartos(),
+                QuartosFixture.quarto(),
                 StatusPagamento.PENDENTE,
                 0F,
                 LocalTime.now()
@@ -72,7 +70,7 @@ public class EntradaFixture {
                 TipoPagamento.PENDENTE,
                 "hjs3o18",
                 null,
-                QuartosFixture.quartos(),
+                QuartosFixture.quarto(),
                 StatusPagamento.PENDENTE,
                 0F,
                 LocalTime.now()
