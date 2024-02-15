@@ -10,13 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -44,6 +42,7 @@ class QuartosServiceTest {
     }
 
     @Test
+    @DisplayName("Cria um quarto válido")
     void criarQuarto() {
 
         when(quartosRepository.save(any(Quartos.class))).thenReturn(quarto);

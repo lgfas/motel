@@ -61,4 +61,22 @@ public class EntradaConsumo {
     public void setEntradas(Entradas entradas) {
         this.entradas = entradas;
     }
+
+    public EntradaConsumo(Long id, Float total, Itens itens, Integer quantidade, Entradas entradas) {
+        this.id = id;
+        this.total = total;
+        this.itens = itens;
+        this.quantidade = quantidade;
+        this.entradas = entradas;
+    }
+
+    public EntradaConsumo(Float total, Itens itens, Integer quantidade, Entradas entradas) {
+        this.total = total;
+        this.itens = itens;
+        this.quantidade = quantidade;
+        this.entradas = entradas;
+    }
+
+    public EntradaConsumo() {
+    }
 }

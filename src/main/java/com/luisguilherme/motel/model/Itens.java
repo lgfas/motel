@@ -37,4 +37,18 @@ public class Itens {
     public void setValor(Float valor) {
         this.valor = valor;
     }
+
+    public Itens(Long id, String descricao, Float valor) {
+        this.id = id;
+        this.descricao = descricao;
+        this.valor = valor;
+    }
+
+    public Itens(String descricao, Float valor) {
+        this.descricao = descricao;
+        this.valor = valor;
+    }
+
+    public Itens() {
+    }
 }

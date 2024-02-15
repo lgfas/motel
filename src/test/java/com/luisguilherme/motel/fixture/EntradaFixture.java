@@ -60,6 +60,22 @@ public class EntradaFixture {
         );
     }
 
+    public static Entradas entradaAtivaConsumo() {
+
+        return new Entradas(
+                1L,
+                LocalDate.now().minusDays(1),
+                StatusEntrada.ATIVA,
+                TipoPagamento.PENDENTE,
+                "ptz2i90",
+                null,
+                QuartosFixture.quarto(),
+                StatusPagamento.PENDENTE,
+                0F,
+                LocalTime.of(10,10)
+        );
+    }
+
     public static Entradas entradaFinalizada() {
 
 
