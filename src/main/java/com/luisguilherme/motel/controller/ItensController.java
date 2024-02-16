@@ -3,10 +3,8 @@ package com.luisguilherme.motel.controller;
 import com.luisguilherme.motel.model.Itens;
 import com.luisguilherme.motel.request.ItensRequest;
 import com.luisguilherme.motel.service.ItensService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,11 +19,13 @@ public class ItensController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Itens> obterItens() {
         return itensService.obterItens();
     }
 
     @PostMapping("/criarItem")
+    @ResponseStatus(HttpStatus.CREATED)
     public Itens criarItem(ItensRequest itensRequest) {
         return itensService.criarItem(itensRequest);
     }
