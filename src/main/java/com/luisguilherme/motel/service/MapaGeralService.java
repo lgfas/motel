@@ -106,16 +106,18 @@ public class MapaGeralService {
             report = "R$ " + mapaGeral.getEntrada() + " foi adicionado ao caixa.";
             mapa.setReport(report);
 
-            mapa.setEntrada(mapaGeral.getEntrada());
+            float novoValorEntrada = mapa.getEntrada() + mapaGeral.getEntrada(); // Adiciona o novo valor ao valor existente
+            mapa.setEntrada(novoValorEntrada);
             mapa.setSaida(0F);
             var totalMapa = mapaGeralRepository.calcularTotal();
-            mapa.setTotal(totalMapa + mapaGeral.getEntrada());
+            mapa.setTotal(totalMapa + novoValorEntrada);
         } else {
             report = "R$ " + mapaGeral.getEntrada() + " foi retirado do caixa.";
             mapa.setReport(report);
 
-            mapa.setSaida(mapaGeral.getEntrada());
-            mapa.setEntrada(0F);
+            float novoValorSaida = mapa.getSaida() + mapaGeral.getEntrada(); // Subtrai o valor negativo do valor existente
+            mapa.setSaida(novoValorSaida);
+            //mapa.setEntrada(0F);
             var totalMapa = mapaGeralRepository.calcularTotal();
             mapa.setTotal(totalMapa + mapaGeral.getEntrada());
         }

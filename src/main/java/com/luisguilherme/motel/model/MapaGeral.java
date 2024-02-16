@@ -98,4 +98,28 @@ public class MapaGeral {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public MapaGeral(Long id, Integer apartment, Float entrada, String report, Float saida, Float total, LocalTime hora, LocalDate data) {
+        this.id = id;
+        this.apartment = apartment;
+        this.entrada = entrada;
+        this.report = report;
+        this.saida = saida;
+        this.total = total;
+        this.hora = hora;
+        this.data = data;
+    }
+
+    public MapaGeral(Integer apartment, Float entrada, String report, Float saida, Float total, LocalTime hora, LocalDate data) {
+        this.apartment = apartment;
+        this.entrada = entrada;
+        this.report = report;
+        this.saida = saida;
+        this.total = total;
+        this.hora = hora;
+        this.data = data;
+    }
+
+    public MapaGeral() {
+    }
 }
