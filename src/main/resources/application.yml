@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: ${MOTEL_DATABASE}
+    username: ${MOTEL_USER}
+    password: ${MOTEL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+    open-in-view: true
+
+#spring.datasource.url=${MOTEL_DATABASE}
+#spring.datasource.username=${MOTEL_USER}
+#spring.datasource.password=${MOTEL_PASSWORD}
+#spring.datasource.driver-class-name=org.postgresql.Driver
+##hibernate.dialect=org.hibernate.dialect.HSQLDialect
+#hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+#
+#spring.jpa.hibernate.ddl-auto=none
+#spring.jpa.show-sql=true
+#spring.jpa.format-sql=true
