@@ -65,7 +65,7 @@ public class EntradaConsumoService {
 
     public List<EntradaConsumo> obterConsumosPorEntrada(Long idEntrada) {
 
-        Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não econtrada!"));
+        Entradas entradas = entradaRepository.findById(idEntrada).orElseThrow(() -> new EntityNotFoundException("Entrada não encontrada!"));
 
         return entradaConsumoRepository.findAllByEntradas(entradas);
 

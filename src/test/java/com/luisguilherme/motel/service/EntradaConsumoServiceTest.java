@@ -41,6 +41,7 @@ class EntradaConsumoServiceTest {
     EntradaConsumoService entradaConsumoService;
 
     Entradas entradaAtivaConsumo = EntradaFixture.entradaAtivaConsumo();
+    Entradas entradaFinalizada = EntradaFixture.entradaFinalizada();
     Itens item = ItensFixture.item();
     EntradaConsumoRequest entradaConsumoRequest = EntradaCosumoRequestFixture.entradaConsumoRequest();
     List<EntradaConsumo> entradaConsumoListEntradaAtiva = EntradaConsumoFixture.entradaConsumoListEntradaAtiva();
@@ -69,6 +70,41 @@ class EntradaConsumoServiceTest {
     }
 
     @Test
+    @DisplayName("Tenta criar uma entradaConsumo, mas entrada não existe")
+    void adicionarConsumoEntradaInexistente() {
+
+        when(entradaRepository.findById(entradaAtivaConsumo.getId())).thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(EntityNotFoundException.class)
+                .isThrownBy(() -> entradaConsumoService.adicionarConsumo(entradaAtivaConsumo.getId(), entradaConsumoRequest, item.getId()))
+                .withMessage("Entrada não encontrada!");
+    }
+
+    @Test
+    @DisplayName("Tenta criar uma entradaConsumo, mas item não existe")
+    void adicionarConsumoItemInexistente() {
+
+        when(entradaRepository.findById(entradaAtivaConsumo.getId())).thenReturn(Optional.ofNullable(entradaAtivaConsumo));
+        when(itensRepository.findById(item.getId())).thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(EntityNotFoundException.class)
+                .isThrownBy(() -> entradaConsumoService.adicionarConsumo(entradaAtivaConsumo.getId(), entradaConsumoRequest, item.getId()))
+                .withMessage("Item inexistente!");
+    }
+
+    @Test
+    @DisplayName("Tenta criar uma entradaConsumo, mas entrada já está finalizada")
+    void adicionarConsumoEntradaFinalizada() {
+
+        when(entradaRepository.findById(entradaFinalizada.getId())).thenReturn(Optional.ofNullable(entradaFinalizada));
+        when(itensRepository.findById(item.getId())).thenReturn(Optional.ofNullable(item));
+
+        Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> entradaConsumoService.adicionarConsumo(entradaFinalizada.getId(), entradaConsumoRequest, item.getId()))
+                .withMessage("Entrada já finalizada!");
+    }
+
+    @Test
     @DisplayName("Lista todos os consumos por uma Entrada válida")
     void obterConsumosPorEntradaValida() {
 
@@ -91,10 +127,30 @@ class EntradaConsumoServiceTest {
 
         Assertions.assertThatExceptionOfType(EntityNotFoundException.class)
                 .isThrownBy(() -> entradaConsumoService.obterConsumosPorEntrada(entradaAtivaConsumo.getId()))
-                .withMessage("Entrada não econtrada!");
+                .withMessage("Entrada não encontrada!");
     }
 
     @Test
+    @DisplayName("Deleta uma entradaConsumo válida")
     void deletarConsumo() {
+
+        when(entradaConsumoRepository.findById(entradaConsumo.getId())).thenReturn(Optional.ofNullable(entradaConsumo));
+
+        String resultado = entradaConsumoService.deletarConsumo(entradaConsumo.getId());
+
+        assertEquals(resultado, "Consumo apagado com sucesso!");
+        verify(entradaConsumoRepository, atLeastOnce()).findById(entradaConsumo.getId());
+        verify(entradaConsumoRepository, atLeastOnce()).delete(entradaConsumo);
+    }
+
+    @Test
+    @DisplayName("Deleta uma entradaConsumo válida")
+    void deletarConsumoInexistente() {
+
+        when(entradaConsumoRepository.findById(entradaConsumo.getId())).thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(EntityNotFoundException.class)
+                .isThrownBy(() -> entradaConsumoService.deletarConsumo(entradaConsumo.getId()))
+                .withMessage("Consumo inexistente!");
     }
 }
