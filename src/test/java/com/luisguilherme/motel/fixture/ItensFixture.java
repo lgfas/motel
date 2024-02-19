@@ -11,7 +11,7 @@ public class ItensFixture {
         return new Itens(
                 1L,
                 "Água",
-                2F
+                3F
         );
     }
 

@@ -7,7 +7,7 @@ public class ItensRequestFixture {
     public static ItensRequest itensRequest() {
         return new ItensRequest(
                 "Água",
-                2F
+                3F
         );
     }
 }
