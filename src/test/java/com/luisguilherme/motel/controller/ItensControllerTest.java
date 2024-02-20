@@ -24,7 +24,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,6 +37,9 @@ class ItensControllerTest {
 
     @MockBean
     ItensService itensService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
     List<Itens> itensList = ItensFixture.itensList();
@@ -56,21 +59,26 @@ class ItensControllerTest {
                 .andExpect(jsonPath("$[0].id").hasJsonPath())
                 .andExpect(jsonPath("$[0].descricao").value(equalToIgnoringCase("Água")))
                 .andExpect(jsonPath("$[0].valor").value(3F))
+                .andExpect(jsonPath("$[1].id").hasJsonPath())
                 .andExpect(jsonPath("$[1].descricao").value(equalToIgnoringCase("Refrigerante")))
                 .andExpect(jsonPath("$[1].valor").value(3.50F));
 
-
+        verify(itensService, atLeastOnce()).obterItens();
     }
 
     @Test
     void criarItem() throws Exception {
 
-//        when(itensService.criarItem(itensRequest)).thenReturn(item);
-//
-//        mockMvc.perform(post(URL + "/criarItem")
-//                        .content(mapper.writeValueAsString(request()))
-//                .andExpect(status().isCreated());
-////                .andExpect(jsonPath("$[0].descricao").value(equalToIgnoringCase("Água")))
-////                .andExpect(jsonPath("$[0].valor").value(2F));
+        when(itensService.criarItem(itensRequest)).thenReturn(item);
+
+        mockMvc.perform(post(URL + "/criarItem")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(itensRequest)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(item.getId()))
+                .andExpect(jsonPath("$.descricao").value(item.getDescricao()))
+                .andExpect(jsonPath("$.valor").value(item.getValor()));
+
+        verify(itensService, atLeastOnce()).criarItem(itensRequest);
     }
 }
