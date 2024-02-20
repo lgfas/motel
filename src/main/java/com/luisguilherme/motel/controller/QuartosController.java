@@ -18,7 +18,7 @@ public class QuartosController {
         this.quartosService = quartosService;
     }
 
-    @GetMapping("/acharTodos")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Quartos> acharTodosQuartos(){
         return quartosService.acharTodosQuartos();
@@ -26,7 +26,7 @@ public class QuartosController {
 
     @PostMapping("/criarQuarto")
     @ResponseStatus(HttpStatus.CREATED)
-    public Quartos criarQuarto(QuartosRequest quartosRequest) {
+    public Quartos criarQuarto(@RequestBody QuartosRequest quartosRequest) {
         return quartosService.criarQuarto(quartosRequest);
     }
 }
