@@ -26,7 +26,7 @@ public class ItensController {
 
     @PostMapping("/criarItem")
     @ResponseStatus(HttpStatus.CREATED)
-    public Itens criarItem(ItensRequest itensRequest) {
+    public Itens criarItem(@RequestBody ItensRequest itensRequest) {
         return itensService.criarItem(itensRequest);
     }
 
