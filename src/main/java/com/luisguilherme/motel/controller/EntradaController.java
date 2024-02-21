@@ -33,9 +33,9 @@ public class EntradaController {
         return entradaService.obterEntradasPorStatusEntrada(statusEntrada);
     }
 
-    @GetMapping("/buscaPorData")
+    @GetMapping("/buscaPorData/{data}")
     @ResponseStatus(HttpStatus.OK)
-    public List<EntradaResponse> obterEntradasPorData(LocalDate data) {
+    public List<EntradaResponse> obterEntradasPorData(@PathVariable LocalDate data) {
         return entradaService.obterEntradasPorData(data);
     }
 
@@ -51,15 +51,14 @@ public class EntradaController {
         return entradaService.obterEntradaPorId(id);
     }
 
-    @PostMapping("/criarEntrada")
+    @PostMapping("/criarEntrada/{idQuarto}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Entradas criarEntrada(Long idQuarto, @RequestBody EntradaRequest entradaRequest) {
+    public Entradas criarEntrada(@PathVariable Long idQuarto, @RequestBody EntradaRequest entradaRequest) {
         return entradaService.criarEntrada(idQuarto, entradaRequest);
     }
-
-    @PutMapping("/atualizarEntrada")
+    @PutMapping("/atualizarEntrada/{idEntrada}")
     @ResponseStatus(HttpStatus.OK)
-    public Entradas atualizarEntrada(Long idEntrada, Entradas entradas, TipoPagamento tipoPagamento, StatusEntrada statusEntrada) {
+    public Entradas atualizarEntrada(@PathVariable Long idEntrada, @RequestBody Entradas entradas, TipoPagamento tipoPagamento, StatusEntrada statusEntrada) {
         return entradaService.atualizarEntrada(idEntrada,entradas, tipoPagamento, statusEntrada);
     }
 

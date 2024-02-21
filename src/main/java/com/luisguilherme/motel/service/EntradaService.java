@@ -132,7 +132,6 @@ public class EntradaService {
 
         entradas.setPlaca(novaEntrada.getPlaca());
 
-
         return entradaRepository.save(entradas);
 
     }
