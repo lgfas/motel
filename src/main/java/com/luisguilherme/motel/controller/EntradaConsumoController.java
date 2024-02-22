@@ -18,21 +18,21 @@ public class EntradaConsumoController {
         this.entradaConsumoService = entradaConsumoService;
     }
 
-    @PostMapping("/adicionarConsumo")
+    @PostMapping("/adicionarConsumo/{idEntrada}/{idItem}")
     @ResponseStatus(HttpStatus.CREATED)
-    public EntradaConsumo adicionarConsumo(Long idEntrada, EntradaConsumoRequest entradaConsumoRequest, Long idItem) {
+    public EntradaConsumo adicionarConsumo(@PathVariable Long idEntrada, @RequestBody EntradaConsumoRequest entradaConsumoRequest, @PathVariable Long idItem) {
         return entradaConsumoService.adicionarConsumo(idEntrada, entradaConsumoRequest, idItem);
     }
 
-    @DeleteMapping("/deletarConsumoPorId")
+    @DeleteMapping("/deletarConsumoPorId/{idConsumo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deletarConsumo(Long idConsumo) {
+    public String deletarConsumo(@PathVariable Long idConsumo) {
         return entradaConsumoService.deletarConsumo(idConsumo);
     }
 
-    @GetMapping("/consumosPorEntrada")
+    @GetMapping("/consumosPorEntrada/{idEntrada}")
     @ResponseStatus(HttpStatus.OK)
-    public List<EntradaConsumo> obterConsumosPorEntrada(Long idEntrada) {
+    public List<EntradaConsumo> obterConsumosPorEntrada(@PathVariable Long idEntrada) {
         return entradaConsumoService.obterConsumosPorEntrada(idEntrada);
     }
 
