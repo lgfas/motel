@@ -11,6 +11,7 @@ import com.luisguilherme.motel.model.Entradas;
 import com.luisguilherme.motel.request.EntradaRequest;
 import com.luisguilherme.motel.response.EntradaResponse;
 import com.luisguilherme.motel.service.EntradaService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -54,6 +55,7 @@ class EntradaControllerTest {
     static final String URL = "/entradas";
 
     @Test
+    @DisplayName("Lista todos as entradas e devolve status 200")
     void obterEntradas() throws Exception {
 
         when(entradaService.obterEntradas()).thenReturn(entradaResponseList);
@@ -85,6 +87,7 @@ class EntradaControllerTest {
     }
 
     @Test
+    @DisplayName("Lista todos as entradas com mesmo StatusEntrada e devolve status 200")
     void obterEntradasPorStatusEntrada() throws Exception {
 
         StatusEntrada statusEntrada = StatusEntrada.ATIVA;
@@ -118,6 +121,7 @@ class EntradaControllerTest {
     }
 
     @Test
+    @DisplayName("Lista todos as entradas com mesma data e devolve status 200")
     void obterEntradasPorData() throws Exception {
 
         LocalDate data = LocalDate.now().minusDays(1);
@@ -151,6 +155,7 @@ class EntradaControllerTest {
     }
 
     @Test
+    @DisplayName("Lista todos as entradas com dataRegistroEntrada = dataAtual e devolve status 200")
     void obterEntradasPorDataAtual() throws Exception {
 
         LocalDate dataAtual = LocalDate.now();
@@ -174,6 +179,7 @@ class EntradaControllerTest {
     }
 
     @Test
+    @DisplayName("Obtem entrada por Id e devolve status 200")
     void obterEntradaPorId() throws Exception {
 
         when(entradaService.obterEntradaPorId(entradaAtiva.getId())).thenReturn(entradaResponseAtiva);
@@ -196,6 +202,7 @@ class EntradaControllerTest {
     }
 
     @Test
+    @DisplayName("Cria entrada e devolve status 201")
     void criarEntrada() throws Exception {
 
         when(entradaService.criarEntrada(entradaAtiva.getQuartos().getId(), entradaRequest)).thenReturn(entradaAtiva);
@@ -219,6 +226,7 @@ class EntradaControllerTest {
     }
 
     @Test
+    @DisplayName("Atualiza entrada e devolve status 200")
     void atualizarEntrada() throws Exception{
 
         TipoPagamento tipoPagamento = TipoPagamento.PENDENTE;

@@ -1,7 +1,7 @@
 package com.luisguilherme.motel.service;
 
 import com.luisguilherme.motel.fixture.EntradaConsumoFixture;
-import com.luisguilherme.motel.fixture.EntradaCosumoRequestFixture;
+import com.luisguilherme.motel.fixture.EntradaConsumoRequestFixture;
 import com.luisguilherme.motel.fixture.EntradaFixture;
 import com.luisguilherme.motel.fixture.ItensFixture;
 import com.luisguilherme.motel.model.EntradaConsumo;
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -43,7 +42,7 @@ class EntradaConsumoServiceTest {
     Entradas entradaAtivaConsumo = EntradaFixture.entradaAtivaConsumo();
     Entradas entradaFinalizada = EntradaFixture.entradaFinalizada();
     Itens item = ItensFixture.item();
-    EntradaConsumoRequest entradaConsumoRequest = EntradaCosumoRequestFixture.entradaConsumoRequest();
+    EntradaConsumoRequest entradaConsumoRequest = EntradaConsumoRequestFixture.entradaConsumoRequest();
     List<EntradaConsumo> entradaConsumoListEntradaAtiva = EntradaConsumoFixture.entradaConsumoListEntradaAtiva();
     EntradaConsumo entradaConsumo = EntradaConsumoFixture.entradaConsumo();
 
