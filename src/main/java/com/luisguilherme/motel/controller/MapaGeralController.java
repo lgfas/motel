@@ -29,9 +29,9 @@ public class MapaGeralController {
         return mapaGeralService.obterMapaPorId(id);
     }
 
-    @PutMapping("/alterarValor")
+    @PutMapping("/alterarValor/{idMapa}")
     @ResponseStatus(HttpStatus.OK)
-    public MapaGeral alterarValor(Long idMapa ,MapaGeral mapaGeral) {
+    public MapaGeral alterarValor(@PathVariable Long idMapa ,@RequestBody MapaGeral mapaGeral) {
         return mapaGeralService.alterarValor(idMapa, mapaGeral);
     }
 
