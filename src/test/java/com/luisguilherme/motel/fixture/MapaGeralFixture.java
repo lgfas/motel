@@ -22,6 +22,19 @@ public class MapaGeralFixture {
         );
     }
 
+    public static MapaGeral mapaGeralDiferente() {
+        return new MapaGeral(
+                2L,
+                0,
+                50F,
+                "R$ 50.0 foi adicionado ao caixa.",
+                0F,
+                80F,
+                LocalTime.now(),
+                LocalDate.now()
+        );
+    }
+
     public static List<MapaGeral> mapaGeralList() {
         List<MapaGeral> mapaGeralList = new ArrayList<>();
 
