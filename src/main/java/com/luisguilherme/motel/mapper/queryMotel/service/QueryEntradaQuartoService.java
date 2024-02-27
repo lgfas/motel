@@ -1,8 +1,8 @@
-package com.luisguilherme.motel.mapper.service;
+package com.luisguilherme.motel.mapper.queryMotel.service;
 
-import com.luisguilherme.motel.mapper.QueryMapper;
-import com.luisguilherme.motel.mapper.model.QueryEntradaQuarto;
-import com.luisguilherme.motel.mapper.query.QueryEntradaQuartoResponse;
+import com.luisguilherme.motel.mapper.queryMotel.response.QueryEntradaQuartoResponse;
+import com.luisguilherme.motel.mapper.queryMotel.QueryMotelMapper;
+import com.luisguilherme.motel.mapper.queryMotel.model.QueryEntradaQuarto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +24,6 @@ public class QueryEntradaQuartoService {
 
         query.append(queryEntradaQuarto.queryEntradaQuarto(id));
 
-        return jdbcTemplate.queryForObject(query.toString(), QueryMapper.rowMapperEntradaQuarto);
+        return jdbcTemplate.queryForObject(query.toString(), QueryMotelMapper.rowMapperEntradaQuarto);
     }
 }

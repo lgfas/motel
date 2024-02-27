@@ -1,11 +1,11 @@
-package com.luisguilherme.motel.mapper;
+package com.luisguilherme.motel.mapper.queryMotel;
 
-import com.luisguilherme.motel.mapper.query.QueryEntradaQuartoResponse;
+import com.luisguilherme.motel.mapper.queryMotel.response.QueryEntradaQuartoResponse;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QueryMapper {
+public class QueryMotelMapper {
 
     public static RowMapper<QueryEntradaQuartoResponse> rowMapperEntradaQuarto = ((rs, rowNum) -> new QueryEntradaQuartoResponse(
             rs.getLong("idEntrada"),

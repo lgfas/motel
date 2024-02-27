@@ -1,6 +1,4 @@
-package com.luisguilherme.motel.mapper.query;
-
-import java.time.LocalDate;
+package com.luisguilherme.motel.mapper.queryMotel.response;
 
 public record QueryEntradaQuartoResponse(
         Long idEntrada,
