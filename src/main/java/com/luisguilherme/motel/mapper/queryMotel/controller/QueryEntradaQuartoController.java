@@ -1,7 +1,7 @@
-package com.luisguilherme.motel.mapper.controller;
+package com.luisguilherme.motel.mapper.queryMotel.controller;
 
-import com.luisguilherme.motel.mapper.query.QueryEntradaQuartoResponse;
-import com.luisguilherme.motel.mapper.service.QueryEntradaQuartoService;
+import com.luisguilherme.motel.mapper.queryMotel.response.QueryEntradaQuartoResponse;
+import com.luisguilherme.motel.mapper.queryMotel.service.QueryEntradaQuartoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

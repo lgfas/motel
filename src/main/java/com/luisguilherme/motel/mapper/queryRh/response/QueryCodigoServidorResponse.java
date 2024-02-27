@@ -1,0 +1,57 @@
+package com.luisguilherme.motel.mapper.queryRh.response;
+
+import java.time.LocalDate;
+
+public record QueryCodigoServidorResponse(
+        Integer codPessoa,
+        String pathFoto,
+        Integer codServidor,
+        String nome,
+        String dataDeNascimento,
+        Integer idSexo,
+        String descricaoSexo,
+        String nomeMae,
+        String nomePai,
+        Integer idPais,
+        String descricaoPais,
+        Integer idEstado,
+        String descricaoEstado,
+        Integer idMunicipio,
+        String descricaoMunicipio,
+        Integer idGrau,
+        String descricaoGrau,
+        Integer idEstadoCivil,
+        String descricaoEstadoCivil,
+        Integer idGrupoSanguineo,
+        String descricaoGrupoSanguineo,
+        String fatorRh,
+        Integer idRacaCor,
+        String descricaoRacaCor,
+        Boolean atestadoFisicoMental,
+        Boolean declaracaoDeBens,
+        String rg,
+        String cpf,
+        Integer idOrgaoExpedidor,
+        String descricaoOrgaoExpedidor,
+        Integer idUf,
+        String nomeUf,
+        String siglaUf,
+        String dataExpedicaoRg,
+        String tituloEleitor,
+        String zona,
+        String secao,
+        String pisPasep,
+        String certificadoReservista,
+        String serieReservista,
+        Integer ufExpedicao,
+        String nomeUfReservista,
+        String siglaUfReservista,
+        Integer idTipoCertificado,
+        String descricaoTipoCertificado,
+        Integer idCategoriaReservista,
+        String descricaoCategoriaReservista,
+        Integer idUfReservista
+
+
+) {
+}

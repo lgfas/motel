@@ -1,8 +1,11 @@
 spring:
   datasource:
-    url: ${MOTEL_DATABASE}
-    username: ${MOTEL_USER}
-    password: ${MOTEL_PASSWORD}
+#    url: ${MOTEL_DATABASE}
+#    username: ${MOTEL_USER}
+#    password: ${MOTEL_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/seap-local
+    username: postgres
+    password: root
 
   jpa:
     hibernate:
