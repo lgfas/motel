@@ -1,4 +1,4 @@
-package com.luisguilherme.motel.mapper.queryMotel.response;
+package com.luisguilherme.motel.mapper.queryTeste.response;
 
 public record QueryEntradaQuartoResponse(
         Long idEntrada,
