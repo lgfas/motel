@@ -1,4 +1,4 @@
-package com.luisguilherme.motel.mapper.queryMotel.model;
+package com.luisguilherme.motel.mapper.queryTeste.model;
 
 import org.springframework.stereotype.Component;
 
