@@ -16,6 +16,7 @@ public class Quartos {
     private String descricao;
     @Column(name = "mt02_capacidade_pessoa")
     private Long capacidadePessoa;
+    @Enumerated(EnumType.STRING)
     @Column(name = "mt02_status_do_quarto")
     private StatusDoQuarto statusDoQuarto;
 
