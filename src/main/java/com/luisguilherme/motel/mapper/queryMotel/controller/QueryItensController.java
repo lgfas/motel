@@ -8,8 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/queryItens")
 public class QueryItensController {
@@ -28,10 +26,8 @@ public class QueryItensController {
 
     @GetMapping("/obterItens")
     @ResponseStatus(HttpStatus.OK)
-    public Page<QueryItens> obterItens (@RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return queryItensService.obterItens(pageable, page, size);
+    public Page<QueryItens> obterItens (Pageable pageable) {
+        return queryItensService.obterItens(pageable);
     }
 
     @PutMapping("/atualizarItem")

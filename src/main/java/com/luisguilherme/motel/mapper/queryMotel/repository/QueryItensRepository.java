@@ -5,11 +5,10 @@ import com.luisguilherme.motel.mapper.queryMotel.model.QueryItens;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 
 @Repository
@@ -45,7 +44,7 @@ public class QueryItensRepository {
         );
     }
 
-    public Page<QueryItens> obterItens (int page, int size) {
+    public Page<QueryItens> obterItens (Pageable pageable) {
 
         final var sql = """
                 
@@ -55,9 +54,10 @@ public class QueryItensRepository {
 
         final var lista = jdbcTemplate.query(sql, rowMapperQueryItens);
 
-        final var pageRequest = PageRequest.of(page, size);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), lista.size());
 
-        return new PageImpl<>(lista, pageRequest, size);
+        return new PageImpl<>(lista.subList(start, end), pageable, lista.size());
     }
 
     public void atualizarItem(QueryItens queryItens) {

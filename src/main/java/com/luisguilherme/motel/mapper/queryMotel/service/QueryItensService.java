@@ -6,11 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class QueryItensService {
@@ -25,12 +24,18 @@ public class QueryItensService {
         queryItensRepository.criarItem(queryItens);
     }
 
-    public Page<QueryItens> obterItens (Pageable pageable, int page, int size) {
-        var retorno = queryItensRepository.obterItens(page, size).stream()
-                .sorted(Comparator.comparing(QueryItens::id).reversed())
-                .toList();
+    public Page<QueryItens> obterItens (Pageable pageable) {
+        // Obter a página de itens do repositório
+        Page<QueryItens> page = queryItensRepository.obterItens(pageable);
 
-        return new PageImpl<>(retorno, pageable, size);
+        // Criar uma nova lista com os dados da página
+        List<QueryItens> itens = new ArrayList<>(page.getContent());
+
+        // Ordenar os itens de acordo com o id ao contrário
+        itens.sort(Comparator.comparing(QueryItens::id).reversed());
+
+        // Criar uma nova página com os itens ordenados
+        return new PageImpl<>(itens, pageable, page.getTotalElements());
     }
 
     public void atualizarItem (QueryItens queryItens) {
