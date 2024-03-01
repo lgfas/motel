@@ -6,7 +6,6 @@ import com.luisguilherme.motel.enums.StatusPagamento;
 import com.luisguilherme.motel.enums.TipoPagamento;
 import com.luisguilherme.motel.mapper.queryMotel.model.QueryEntrada;
 import com.luisguilherme.motel.mapper.queryMotel.model.QueryMapaGeral;
-import com.luisguilherme.motel.mapper.queryMotel.model.QueryQuartos;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
