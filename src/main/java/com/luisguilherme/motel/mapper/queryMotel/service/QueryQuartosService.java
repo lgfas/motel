@@ -21,8 +21,8 @@ public class QueryQuartosService {
         this.queryQuartosRepository = queryQuartosRepository;
     }
 
-    public void criarQuarto(QueryQuartos queryQuartos) {
-        queryQuartosRepository.criarQuarto(queryQuartos);
+    public void criarQuarto(QueryQuartos queryQuartos, StatusDoQuarto statusDoQuarto) {
+        queryQuartosRepository.criarQuarto(queryQuartos, statusDoQuarto);
     }
 
     public Page<QueryQuartos> obterQuartos (Pageable pageable) {
