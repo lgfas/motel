@@ -1,6 +1,7 @@
 package com.luisguilherme.motel.mapper.queryMotel.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.luisguilherme.motel.mapper.queryMotel.model.QueryEntrada;
 import com.luisguilherme.motel.mapper.queryMotel.model.QueryItens;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -86,5 +87,17 @@ public class QueryItensRepository {
                 """;
 
         jdbcTemplate.update(sql, id);
+    }
+
+    public QueryItens buscarPorId (Long id) {
+
+        final var sql = """
+                
+                SELECT * FROM mt03_itens
+                WHERE mt03_codigo_itens = ?
+                
+                """;
+
+        return jdbcTemplate.queryForObject(sql, rowMapperQueryItens, id);
     }
 }
