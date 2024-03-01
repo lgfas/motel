@@ -1,6 +1,6 @@
 package com.luisguilherme.motel.mapper.queryMotel.controller;
 
-import com.luisguilherme.motel.mapper.queryMotel.model.QueryItens;
+import com.luisguilherme.motel.enums.StatusDoQuarto;
 import com.luisguilherme.motel.mapper.queryMotel.model.QueryQuartos;
 import com.luisguilherme.motel.mapper.queryMotel.service.QueryQuartosService;
 import org.springframework.data.domain.Page;
@@ -20,8 +20,8 @@ public class QueryQuartosController {
 
     @PostMapping("/criarQuarto")
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarQuarto(QueryQuartos queryQuartos) {
-        queryQuartosService.criarQuarto(queryQuartos);
+    public void criarQuarto(QueryQuartos queryQuartos, StatusDoQuarto statusDoQuarto) {
+        queryQuartosService.criarQuarto(queryQuartos, statusDoQuarto);
     }
 
     @GetMapping("/obterQuartos")
