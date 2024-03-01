@@ -1,12 +1,12 @@
 package com.luisguilherme.motel.mapper.queryMotel.controller;
 
 import com.luisguilherme.motel.mapper.queryMotel.model.QueryEntradaConsumo;
+import com.luisguilherme.motel.mapper.queryMotel.model.QueryMapaGeral;
 import com.luisguilherme.motel.mapper.queryMotel.service.QueryEntradaConsumoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/queryEntradaConsumo")
@@ -23,4 +23,17 @@ public class QueryEntradaConsumoController {
     public void criarEntradaConsumo (QueryEntradaConsumo queryEntradaConsumo, Long idItem, Long idEntrada) {
         queryEntradaConsumoService.criarEntradaConsumo(queryEntradaConsumo, idItem, idEntrada);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/obterEntradasConsumo")
+    public Page<QueryEntradaConsumo> obterEntradasConsumo(Pageable pageable) {
+        return queryEntradaConsumoService.obterEntradasConsumo(pageable);
+    }
+
+    @DeleteMapping("/deletarEntradaConsumo/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarEntradaConsumo (@PathVariable Long id) {
+        queryEntradaConsumoService.deletarEntradaConsumo(id);
+    }
+
 }
