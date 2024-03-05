@@ -4,6 +4,7 @@ import com.luisguilherme.motel.mapper.queryRh.QueryRhMapper;
 import com.luisguilherme.motel.mapper.queryRh.model.QueryRhModel;
 import com.luisguilherme.motel.mapper.queryRh.response.QueryCodigoServidorResponse;
 import com.luisguilherme.motel.mapper.queryRh.response.QueryMatriculaNomeCpfResponse;
+import com.luisguilherme.motel.mapper.queryRh.response.QueryServidorRelatorio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -41,5 +42,14 @@ public class QueryRhService {
         int end = Math.min((start + pageable.getPageSize()), page.size());
 
         return new PageImpl<>(page.subList(start, end), pageable, page.size());
+    }
+
+    public QueryServidorRelatorio buscaServidorPorCodigoServidorRelatorio(Integer codServidor) {
+
+        StringBuilder query = new StringBuilder();
+
+        query.append(queryRhModel.queryBuscaServidorRelatorio(codServidor));
+
+        return jdbcTemplate.queryForObject(query.toString(), QueryRhMapper.rowMapperServidorRelatorio);
     }
 }

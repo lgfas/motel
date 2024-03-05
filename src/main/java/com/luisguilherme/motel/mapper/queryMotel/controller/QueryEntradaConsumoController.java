@@ -1,7 +1,6 @@
 package com.luisguilherme.motel.mapper.queryMotel.controller;
 
 import com.luisguilherme.motel.mapper.queryMotel.model.QueryEntradaConsumo;
-import com.luisguilherme.motel.mapper.queryMotel.model.QueryMapaGeral;
 import com.luisguilherme.motel.mapper.queryMotel.service.QueryEntradaConsumoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
