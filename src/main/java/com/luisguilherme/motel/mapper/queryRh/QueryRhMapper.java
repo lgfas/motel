@@ -72,7 +72,6 @@ public class QueryRhMapper {
     public static RowMapper<QueryServidorRelatorio> rowMapperServidorRelatorio =
             ((rs, rowNum) -> new QueryServidorRelatorio(
                     rs.getInt("codPessoa"),
-                    rs.getString("pathFoto"),
                     rs.getInt("codServidor"),
                     rs.getString("nome"),
                     rs.getString("dataDeNascimento"),

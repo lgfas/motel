@@ -10,7 +10,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
@@ -36,12 +35,12 @@ public class RelatorioServidorService {
 
     public void servidorRelatorio(Integer codServidor, HttpServletResponse response) throws Exception {
         //localiza as imagens
-        final String MODELO_FERIAS_RETIFICAR_JRXML = "/relatorios/cracha-servidor.jrxml";
+        final String MODELO_FERIAS_RETIFICAR_JRXML = "relatorios/cracha-servidor.jrxml";
 
         //nome do pdf
         String fileName = "cracha-servidor";
 
-        BufferedImage background = reportImageUtil.getBufferedImage("imagens/fotoServidor/background.png");
+        BufferedImage background = reportImageUtil.getBufferedImage("imagens/personagem.jpeg");
 
         //faz a query do servidor
         var servidor = queryRhService.buscaServidorPorCodigoServidorRelatorio(codServidor);
@@ -71,7 +70,6 @@ public class RelatorioServidorService {
 
         ServidorRelatorio servidorRelatorio = new ServidorRelatorio();
         servidorRelatorio.setCodPessoa(servidor.codPessoa());
-        servidorRelatorio.setPathFoto(servidor.pathFoto());
         servidorRelatorio.setCodServidor(servidor.codServidor());
         servidorRelatorio.setNome(servidor.nome());
         servidorRelatorio.setDataDeNascimento(servidor.dataDeNascimento());
