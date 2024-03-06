@@ -45,8 +45,6 @@ public class RelatorioServidorService {
 
         //faz a query do servidor
         var servidor = queryRhService.buscaServidorPorCodigoServidorRelatorio(codServidor);
-        System.out.println(servidor.codPessoa());
-        System.out.println(servidor.nome());
 
         //cria um objeto igual a query, com os mesmos parametros, só que inserindo get e set
         ServidorRelatorio servidorRelatorio = new ServidorRelatorio();
