@@ -3,7 +3,6 @@ package com.luisguilherme.motel.relatorio;
 public class ServidorRelatorio {
 
     Integer codPessoa;
-    String pathFoto;
     Integer codServidor;
     String nome;
     String dataDeNascimento;
@@ -19,14 +18,6 @@ public class ServidorRelatorio {
 
     public void setCodPessoa(Integer codPessoa) {
         this.codPessoa = codPessoa;
-    }
-
-    public String getPathFoto() {
-        return pathFoto;
-    }
-
-    public void setPathFoto(String pathFoto) {
-        this.pathFoto = pathFoto;
     }
 
     public Integer getCodServidor() {

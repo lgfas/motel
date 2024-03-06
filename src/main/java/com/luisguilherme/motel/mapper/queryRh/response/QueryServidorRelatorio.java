@@ -2,7 +2,6 @@ package com.luisguilherme.motel.mapper.queryRh.response;
 
 public record QueryServidorRelatorio(
         Integer codPessoa,
-        String pathFoto,
         Integer codServidor,
         String nome,
         String dataDeNascimento,

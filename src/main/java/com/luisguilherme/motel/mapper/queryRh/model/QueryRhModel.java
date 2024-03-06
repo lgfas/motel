@@ -154,7 +154,6 @@ public class QueryRhModel {
         query.append("""
                 SELECT
                     rh01.rh01_cod_pessoa AS codPessoa,
-                    cg29.cg29_path as pathFoto,
                     rh02.rh02_cod_servidor as codServidor,
                     rh01.rh01_nome as nome,
                     rh01.rh01_data_nascimento as dataDeNascimento,
